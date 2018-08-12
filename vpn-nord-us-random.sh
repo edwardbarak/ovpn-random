@@ -5,11 +5,12 @@ if [[ $UID != 0 ]]; then
     exit 1
 fi
 
+# if --up arg has been passed, get username and password. use command "expect" and "send" to send un&pw to openvpn.
+# example at: https://bbs.archlinux.org/viewtopic.php?pid=995116#p995116
+
 # Get list & count of US servers
-list=$(ls /etc/openvpn/ovpn_tcp/ | grep us\[0-9]*\.nordvpn\.com\.tcp\.ovpn)
-#echo $list #debug
+list=$(ls /etc/openvpn/ovpn_tcp/ | grep ^us\[0-9]*\.nordvpn\.com\.tcp\.ovpn)
 cnt=$(echo $list | wc -w)
-echo $cnt #debug
 
 # Select random number between 1 and $cnt
 n=$(( ( RANDOM % $cnt )  + 1 ))
